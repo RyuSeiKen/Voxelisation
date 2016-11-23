@@ -1,2 +1,6 @@
+<<<<<<< 0de1d5d149933afe88c5df921ac6dac865b65282
 m_EditorVersion: 5.3.5p5
+=======
+m_EditorVersion: 5.4.1f1
+>>>>>>> Added gitignore
 m_StandardAssetsVersion: 0
