@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{CE2D9980-C437-7FD1-2A00-6748210B57D7}</ProjectGuid>
+    <ProjectGuid>{621C25CD-E1D0-219D-C647-D1C819D86CCD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -46,11 +46,14 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\CameraRender.cs" />
+     <Compile Include="Assets\Scripts\GetColor.cs" />
      <Compile Include="Assets\Scripts\GetVertices.cs" />
+     <Compile Include="Assets\Scripts\MarchingCube.cs" />
      <Compile Include="Assets\Scripts\Physics.cs" />
      <Compile Include="Assets\Scripts\RenderImage.cs" />
      <Compile Include="Assets\Scripts\RenderImages.cs" />
      <Compile Include="Assets\Scripts\Rotate.cs" />
+     <Compile Include="Assets\Scripts\Vertex.cs" />
      <Compile Include="Assets\Scripts\VoxelDestroy.cs" />
      <Compile Include="Assets\Scripts\VoxelManager.cs" />
      <Compile Include="Assets\Scripts\VoxelTest.cs" />
@@ -68,7 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{8674DAEB-7B13-AF72-37B9-A20466A213A7}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+      <Project>{2088EB84-D889-2D69-1905-0CF8DEAB5CEF}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
