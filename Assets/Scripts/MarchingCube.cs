@@ -7,7 +7,6 @@ public class MarchingCube : MonoBehaviour
 	public bool[] inMesh = new bool[8];
 	public GameObject cube;
 	GameObject newCube;
-	public GameObject largeObject;
 
 	public GameObject marchingCube1;
 	public GameObject marchingCube2;
@@ -36,18 +35,33 @@ public class MarchingCube : MonoBehaviour
 		}
 	}
 
+	void Update()
+	{
+		if(Input.GetKeyDown(KeyCode.Z))
+		{
+			CubeReplacer();
+		}
+	}
+
+	//Cette fonction remplace le cube par le marching cube adapté en fonction de la position de ses vertices.
 	public void CubeReplacer()
 	{
 		//Desactivation du cube original
 		cube.SetActive(false);
 
-		//Cube1
-		if(inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
+		//En cas d'absence du mesh, on ne créé rien.
+		if(!inMesh[0] && !inMesh[1] && !inMesh[2] && !inMesh[3] && !inMesh[4] && !inMesh[5] && !inMesh[6] && !inMesh[7])
+		{			
+			return;
+		}
+
+		//Cube1. généré dans 1 cas
+		else if(inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
 		{
 			newCube = Instantiate(marchingCube1, cube.transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
 		}
 
-		//Cube2
+		//Cube2, généré dans 8 cas
 		else if(!inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
 		{
 			newCube = Instantiate(marchingCube2, cube.transform.position, Quaternion.Euler(0, 0, 90)) as GameObject;
@@ -81,59 +95,652 @@ public class MarchingCube : MonoBehaviour
 			newCube = Instantiate(marchingCube2, cube.transform.position, Quaternion.Euler(0, 90, 0)) as GameObject;
 		}
 
-		//Cube3
-//		else if(!inMesh[0] && !inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
-//		{
-//			newCube = Instantiate(marchingCube3, cube.transform.position, Quaternion.Euler(0, 0, 90)) as GameObject;
-//		}
-//		else if(inMesh[0] && !inMesh[1] && !inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
-//		{
-//			newCube = Instantiate(marchingCube3, cube.transform.position, Quaternion.Euler(0, -90, 90)) as GameObject;
-//		}
-//		else if(inMesh[0] && inMesh[1] && !inMesh[2] && !inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
-//		{
-//			newCube = Instantiate(marchingCube3, cube.transform.position, Quaternion.Euler(0, -180, 90)) as GameObject;
-//		}
-//		else if(!inMesh[0] && inMesh[1] && inMesh[2] && !inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
-//		{
-//			newCube = Instantiate(marchingCube3, cube.transform.position, Quaternion.Euler(0, 90, 90)) as GameObject;
-//		}
-//		else if(inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && !inMesh[4] && !inMesh[5] && inMesh[6] && inMesh[7])
-//		{
-//			newCube = Instantiate(marchingCube3, cube.transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
-//		}
-//		else if(inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && !inMesh[5] && !inMesh[6] && inMesh[7])
-//		{
-//			newCube = Instantiate(marchingCube3, cube.transform.position, Quaternion.Euler(0, -90, 0)) as GameObject;
-//		}
-//		else if(inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && !inMesh[6] && !inMesh[7])
-//		{
-//			newCube = Instantiate(marchingCube3, cube.transform.position, Quaternion.Euler(0, 180, 0)) as GameObject;
-//		}
-//		else if(inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && !inMesh[4] && inMesh[5] && inMesh[6] && !inMesh[7])
-//		{
-//			newCube = Instantiate(marchingCube3, cube.transform.position, Quaternion.Euler(0, 90, 0)) as GameObject;
-//		}
-//		else if(!inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && !inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
-//		{
-//			newCube = Instantiate(marchingCube3, cube.transform.position, Quaternion.Euler(0, 90, 0)) as GameObject;
-//		}
-//		else if(inMesh[0] && !inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && !inMesh[5] && inMesh[6] && inMesh[7])
-//		{
-//			newCube = Instantiate(marchingCube3, cube.transform.position, Quaternion.Euler(0, 90, 0)) as GameObject;
-//		}
-//		else if(inMesh[0] && inMesh[1] && !inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && !inMesh[6] && inMesh[7])
-//		{
-//			newCube = Instantiate(marchingCube3, cube.transform.position, Quaternion.Euler(0, 90, 0)) as GameObject;
-//		}
-//		else if(inMesh[0] && inMesh[1] && inMesh[2] && !inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && !inMesh[7])
-//		{
-//			newCube = Instantiate(marchingCube3, cube.transform.position, Quaternion.Euler(0, 90, 0)) as GameObject;
-//		}
+		//Cube3, généré dans 12 cas
+		else if(!inMesh[0] && !inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube3, cube.transform.position, Quaternion.Euler(-90, 0, 0)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && !inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube3, cube.transform.position, Quaternion.Euler(0, -90, 0)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && !inMesh[2] && !inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube3, cube.transform.position, Quaternion.Euler(0, 180, 0)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && inMesh[2] && !inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube3, cube.transform.position, Quaternion.Euler(0, 90, 0)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && !inMesh[4] && !inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube3, cube.transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && !inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube3, cube.transform.position, Quaternion.Euler(0, -90, 0)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && !inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube3, cube.transform.position, Quaternion.Euler(0, 180, 0)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && !inMesh[4] && inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube3, cube.transform.position, Quaternion.Euler(0, 90, 0)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && !inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube3, cube.transform.position, Quaternion.Euler(0, 0, 90)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && !inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube3, cube.transform.position, Quaternion.Euler(0, -90, 90)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && !inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube3, cube.transform.position, Quaternion.Euler(0, 180, 90)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && inMesh[2] && !inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube3, cube.transform.position, Quaternion.Euler(0, 90, 90)) as GameObject;
+		}
 
+		//Cube4, généré dans 12 cas
+		else if(!inMesh[0] && inMesh[1] && !inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube4, cube.transform.position, Quaternion.Euler(-90, 0, 0)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && inMesh[2] && !inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube4, cube.transform.position, Quaternion.Euler(-90, 90, 0)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && !inMesh[4] && inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube4, cube.transform.position, Quaternion.Euler(90, 90, 0)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && !inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube4, cube.transform.position, Quaternion.Euler(90, 0, 0)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && !inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube4, cube.transform.position, Quaternion.Euler(0, 0, 90)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && inMesh[2] && inMesh[3] && !inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube4, cube.transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube4, cube.transform.position, Quaternion.Euler(0, -90, 90)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && !inMesh[2] && inMesh[3] && inMesh[4] && !inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube4, cube.transform.position, Quaternion.Euler(0, -90, 0)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && !inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube4, cube.transform.position, Quaternion.Euler(0, 180, 90)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && inMesh[2] && !inMesh[3] && inMesh[4] && inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube4, cube.transform.position, Quaternion.Euler(0, 180, 0)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && inMesh[2] && !inMesh[3] && !inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube4, cube.transform.position, Quaternion.Euler(0, 90, 90)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube4, cube.transform.position, Quaternion.Euler(0, 90, 0)) as GameObject;
+		}
+
+		//Cube5, généré dans 24 cas
+		else if(!inMesh[0] && !inMesh[1] && !inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube5, cube.transform.position, Quaternion.Euler(180, 0, 0)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && !inMesh[2] && !inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube5, cube.transform.position, Quaternion.Euler(180, -90, 0)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && !inMesh[2] && !inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube5, cube.transform.position, Quaternion.Euler(180, 180, 0)) as GameObject;
+		}
+		else if(!inMesh[0] && !inMesh[1] && inMesh[2] && !inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube5, cube.transform.position, Quaternion.Euler(180, 90, 0)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && !inMesh[4] && !inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube5, cube.transform.position, Quaternion.Euler(0, 90, 0)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && !inMesh[5] && !inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube5, cube.transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && !inMesh[4] && inMesh[5] && !inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube5, cube.transform.position, Quaternion.Euler(0, -90, 0)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && !inMesh[4] && !inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube5, cube.transform.position, Quaternion.Euler(0, 180, 0)) as GameObject;
+		}
+		else if(!inMesh[0] && !inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && !inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube5, cube.transform.position, Quaternion.Euler(180, -90, 90)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && inMesh[2] && inMesh[3] && !inMesh[4] && !inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube5, cube.transform.position, Quaternion.Euler(-90, -90, 90)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && !inMesh[4] && !inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube5, cube.transform.position, Quaternion.Euler(0, -90, 90)) as GameObject;
+		}
+		else if(!inMesh[0] && !inMesh[1] && inMesh[2] && inMesh[3] && !inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube5, cube.transform.position, Quaternion.Euler(90, -90, 90)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && !inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube5, cube.transform.position, Quaternion.Euler(180, 180, 90)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && !inMesh[2] && inMesh[3] && inMesh[4] && !inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube5, cube.transform.position, Quaternion.Euler(-90, 180, 90)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && !inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube5, cube.transform.position, Quaternion.Euler(0, 180, 90)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && !inMesh[2] && inMesh[3] && inMesh[4] && !inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube5, cube.transform.position, Quaternion.Euler(90, 180, 90)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && !inMesh[2] && !inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube5, cube.transform.position, Quaternion.Euler(180, 90, 90)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && inMesh[2] && !inMesh[3] && inMesh[4] && inMesh[5] && !inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube5, cube.transform.position, Quaternion.Euler(-90, 90, 90)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && !inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && !inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube5, cube.transform.position, Quaternion.Euler(0, 90, 90)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && !inMesh[2] && !inMesh[3] && inMesh[4] && inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube5, cube.transform.position, Quaternion.Euler(90, 90, 90)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && inMesh[2] && !inMesh[3] && !inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube5, cube.transform.position, Quaternion.Euler(0, 180, -90)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && !inMesh[4] && inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube5, cube.transform.position, Quaternion.Euler(-90, 180, -90)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && inMesh[2] && !inMesh[3] && !inMesh[4] && inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube5, cube.transform.position, Quaternion.Euler(180, 180, -90)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && inMesh[2] && !inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube5, cube.transform.position, Quaternion.Euler(90, 180, -90)) as GameObject;
+		}
+
+		//Cube6, généré dans 6 cas
+		else if(!inMesh[0] && !inMesh[1] && !inMesh[2] && !inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube6, cube.transform.position, Quaternion.Euler(180, 0, 0)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && !inMesh[4] && !inMesh[5] && !inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube6, cube.transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
+		}
+		else if(!inMesh[0] && !inMesh[1] && inMesh[2] && inMesh[3] && !inMesh[4] && !inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube6, cube.transform.position, Quaternion.Euler(-90, 0, 0)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && !inMesh[2] && !inMesh[3] && inMesh[4] && inMesh[5] && !inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube6, cube.transform.position, Quaternion.Euler(90, 0, 0)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && !inMesh[2] && inMesh[3] && inMesh[4] && !inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube6, cube.transform.position, Quaternion.Euler(0, 0, 90)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && inMesh[2] && !inMesh[3] && !inMesh[4] && inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube6, cube.transform.position, Quaternion.Euler(0, 0, -90)) as GameObject;
+		}
+
+		//Cube7, généré dans 24 cas
+		else if(!inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && !inMesh[5] && !inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube7, cube.transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && inMesh[2] && inMesh[3] && !inMesh[4] && inMesh[5] && !inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube7, cube.transform.position, Quaternion.Euler(0, -90, 0)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && !inMesh[2] && inMesh[3] && !inMesh[4] && !inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube7, cube.transform.position, Quaternion.Euler(0, 180, 0)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && inMesh[2] && !inMesh[3] && !inMesh[4] && !inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube7, cube.transform.position, Quaternion.Euler(0, 90, 0)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && !inMesh[2] && !inMesh[3] && !inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube7, cube.transform.position, Quaternion.Euler(180, -90, 0)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && !inMesh[2] && !inMesh[3] && inMesh[4] && !inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube7, cube.transform.position, Quaternion.Euler(180, 180, 0)) as GameObject;
+		}
+		else if(!inMesh[0] && !inMesh[1] && inMesh[2] && !inMesh[3] && inMesh[4] && inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube7, cube.transform.position, Quaternion.Euler(180, 90, 0)) as GameObject;
+		}
+		else if(!inMesh[0] && !inMesh[1] && !inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube7, cube.transform.position, Quaternion.Euler(180, 0, 0)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && !inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && !inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube7, cube.transform.position, Quaternion.Euler(0, 90, 90)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && inMesh[2] && !inMesh[3] && inMesh[4] && inMesh[5] && !inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube7, cube.transform.position, Quaternion.Euler(-90, 90, 90)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && !inMesh[2] && !inMesh[3] && inMesh[4] && !inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube7, cube.transform.position, Quaternion.Euler(180, 90, 90)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && !inMesh[2] && !inMesh[3] && !inMesh[4] && inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube7, cube.transform.position, Quaternion.Euler(90, 90, 90)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && inMesh[2] && !inMesh[3] && !inMesh[4] && inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube7, cube.transform.position, Quaternion.Euler(180, 180, -90)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && !inMesh[2] && inMesh[3] && !inMesh[4] && inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube7, cube.transform.position, Quaternion.Euler(-90, 180, -90)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && inMesh[2] && !inMesh[3] && !inMesh[4] && inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube7, cube.transform.position, Quaternion.Euler(0, 180, -90)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && inMesh[2] && !inMesh[3] && inMesh[4] && !inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube7, cube.transform.position, Quaternion.Euler(90, 180, -90)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && !inMesh[2] && inMesh[3] && !inMesh[4] && !inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube7, cube.transform.position, Quaternion.Euler(180, 90, -90)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && inMesh[2] && !inMesh[3] && !inMesh[4] && !inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube7, cube.transform.position, Quaternion.Euler(-90, 90, -90)) as GameObject;
+		}
+		else if(!inMesh[0] && !inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && !inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube7, cube.transform.position, Quaternion.Euler(0, 90, -90)) as GameObject;
+		}
+		else if(!inMesh[0] && !inMesh[1] && inMesh[2] && inMesh[3] && !inMesh[4] && inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube7, cube.transform.position, Quaternion.Euler(90, 90, -90)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && inMesh[2] && !inMesh[3] && inMesh[4] && !inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube7, cube.transform.position, Quaternion.Euler(-180, 0, -90)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && !inMesh[2] && inMesh[3] && inMesh[4] && !inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube7, cube.transform.position, Quaternion.Euler(-90, 0, -90)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && !inMesh[2] && inMesh[3] && !inMesh[4] && inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube7, cube.transform.position, Quaternion.Euler(0, 0, -90)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && !inMesh[2] && inMesh[3] && inMesh[4] && !inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube7, cube.transform.position, Quaternion.Euler(90, 0, -90)) as GameObject;
+		}
+
+		//Cube8, généré dans 2 cas
+		else if(!inMesh[0] && inMesh[1] && !inMesh[2] && inMesh[3] && inMesh[4] && !inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube8, cube.transform.position, Quaternion.Euler(0, -90, 0)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && inMesh[2] && !inMesh[3] && !inMesh[4] && inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube8, cube.transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
+		}
+
+		//Cube9, généré dans 8 cas
+		else if(!inMesh[0] && !inMesh[1] && inMesh[2] && !inMesh[3] && !inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube9, cube.transform.position, Quaternion.Euler(0, 180, 180)) as GameObject;
+		}
+		else if(!inMesh[0] && !inMesh[1] && !inMesh[2] && inMesh[3] && inMesh[4] && !inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube9, cube.transform.position, Quaternion.Euler(0, 90, 180)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && !inMesh[2] && !inMesh[3] && inMesh[4] && inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube9, cube.transform.position, Quaternion.Euler(0, 0, 180)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && !inMesh[2] && !inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube9, cube.transform.position, Quaternion.Euler(0, -90, 180)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && !inMesh[4] && !inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube9, cube.transform.position, Quaternion.Euler(0, -90, 0)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && inMesh[2] && inMesh[3] && !inMesh[4] && !inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube9, cube.transform.position, Quaternion.Euler(0, 180, 0)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && !inMesh[2] && inMesh[3] && inMesh[4] && !inMesh[5] && !inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube9, cube.transform.position, Quaternion.Euler(0, 90, 0)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && inMesh[2] && !inMesh[3] && !inMesh[4] && inMesh[5] && !inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube9, cube.transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
+		}
+
+		//Cube10, généré dans 12 cas
+		else if(!inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && !inMesh[4] && inMesh[5] && !inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube10, cube.transform.position, Quaternion.Euler(0, -90, 0)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && inMesh[2] && inMesh[3] && !inMesh[4] && !inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube10, cube.transform.position, Quaternion.Euler(0, 180, 0)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && !inMesh[2] && inMesh[3] && !inMesh[4] && !inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube10, cube.transform.position, Quaternion.Euler(0, 90, 0)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && inMesh[2] && !inMesh[3] && inMesh[4] && !inMesh[5] && !inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube10, cube.transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
+		}
+		else if(!inMesh[0] && !inMesh[1] && !inMesh[2] && inMesh[3] && !inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube10, cube.transform.position, Quaternion.Euler(0, 180, 180)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && !inMesh[2] && !inMesh[3] && inMesh[4] && !inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube10, cube.transform.position, Quaternion.Euler(0, 90, 180)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && !inMesh[2] && !inMesh[3] && inMesh[4] && inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube10, cube.transform.position, Quaternion.Euler(0, 0, 180)) as GameObject;
+		}
+		else if(!inMesh[0] && !inMesh[1] && inMesh[2] && !inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube10, cube.transform.position, Quaternion.Euler(0, -90, 180)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && inMesh[2] && !inMesh[3] && !inMesh[4] && !inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube10, cube.transform.position, Quaternion.Euler(180, 0, 90)) as GameObject;
+		}
+		else if(!inMesh[0] && !inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && !inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube10, cube.transform.position, Quaternion.Euler(180, -90, 90)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && !inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && !inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube10, cube.transform.position, Quaternion.Euler(180, 180, 90)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && !inMesh[2] && !inMesh[3] && !inMesh[4] && inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube10, cube.transform.position, Quaternion.Euler(180, 90, 90)) as GameObject;
+		}
+
+		//Cube11, généré dans 4 cas
+		else if(!inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube11, cube.transform.position, Quaternion.Euler(0, 180, 0)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube11, cube.transform.position, Quaternion.Euler(0, 90, 0)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && !inMesh[2] && inMesh[3] && !inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube11, cube.transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && inMesh[2] && !inMesh[3] && inMesh[4] && !inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube11, cube.transform.position, Quaternion.Euler(0, -90, 0)) as GameObject;
+		}
+
+		//Cube12, généré dans 24 cas
+		else if(!inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && !inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube12, cube.transform.position, Quaternion.Euler(0, 180, 0)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && inMesh[2] && inMesh[3] && !inMesh[4] && inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube12, cube.transform.position, Quaternion.Euler(0, 90, 0)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && !inMesh[2] && inMesh[3] && !inMesh[4] && !inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube12, cube.transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && inMesh[2] && !inMesh[3] && inMesh[4] && !inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube12, cube.transform.position, Quaternion.Euler(0, -90, 0)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && !inMesh[2] && !inMesh[3] && !inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube12, cube.transform.position, Quaternion.Euler(-90, 180, 0)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && inMesh[2] && !inMesh[3] && inMesh[4] && !inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube12, cube.transform.position, Quaternion.Euler(-90, 180, -90)) as GameObject;
+		}
+		else if(!inMesh[0] && !inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube12, cube.transform.position, Quaternion.Euler(-90, 180, 180)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && !inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube12, cube.transform.position, Quaternion.Euler(-90, 180, 90)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && !inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube12, cube.transform.position, Quaternion.Euler(90, 180, 90)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && !inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube12, cube.transform.position, Quaternion.Euler(90, 180, 180)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && !inMesh[2] && inMesh[3] && !inMesh[4] && inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube12, cube.transform.position, Quaternion.Euler(90, 180, -90)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && inMesh[2] && !inMesh[3] && !inMesh[4] && !inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube12, cube.transform.position, Quaternion.Euler(90, 180, 0)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && !inMesh[2] && inMesh[3] && !inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube12, cube.transform.position, Quaternion.Euler(180, 90, 0)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && !inMesh[2] && !inMesh[3] && inMesh[4] && !inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube12, cube.transform.position, Quaternion.Euler(180, 0, 0)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && inMesh[2] && !inMesh[3] && inMesh[4] && inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube12, cube.transform.position, Quaternion.Euler(180, -90, 0)) as GameObject;
+		}
+		else if(!inMesh[0] && !inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube12, cube.transform.position, Quaternion.Euler(180, 180, 0)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && !inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube12, cube.transform.position, Quaternion.Euler(180, 90, 90)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && inMesh[2] && !inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube12, cube.transform.position, Quaternion.Euler(180, 0, 90)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && !inMesh[2] && inMesh[3] && !inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube12, cube.transform.position, Quaternion.Euler(180, -90, 90)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && inMesh[2] && !inMesh[3] && inMesh[4] && !inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube12, cube.transform.position, Quaternion.Euler(180, 180, 90)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && !inMesh[2] && inMesh[3] && !inMesh[4] && inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube12, cube.transform.position, Quaternion.Euler(0, 180, 90)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && inMesh[2] && !inMesh[3] && inMesh[4] && !inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube12, cube.transform.position, Quaternion.Euler(0, 90, 90)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && !inMesh[4] && inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube12, cube.transform.position, Quaternion.Euler(0, 0, 90)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && !inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube12, cube.transform.position, Quaternion.Euler(0, -90, 90)) as GameObject;
+		}
+
+		//Cube13, généré dans 8 cas
+		else if(!inMesh[0] && inMesh[1] && !inMesh[2] && inMesh[3] && inMesh[4] && !inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube13, cube.transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && inMesh[2] && !inMesh[3] && inMesh[4] && inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube13, cube.transform.position, Quaternion.Euler(0, -90, 0)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && !inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube13, cube.transform.position, Quaternion.Euler(0, 180, 0)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && inMesh[2] && !inMesh[3] && !inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube13, cube.transform.position, Quaternion.Euler(0, 90, 0)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && inMesh[2] && inMesh[3] && !inMesh[4] && inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube13, cube.transform.position, Quaternion.Euler(90, 0, 0)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && !inMesh[2] && inMesh[3] && inMesh[4] && !inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube13, cube.transform.position, Quaternion.Euler(90, 0, 90)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && inMesh[2] && !inMesh[3] && !inMesh[4] && inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube13, cube.transform.position, Quaternion.Euler(90, 0, 180)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && !inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube13, cube.transform.position, Quaternion.Euler(90, 0, -90)) as GameObject;
+		}
+
+		//Cube14, généré dans 6 cas
+		else if(!inMesh[0] && inMesh[1] && !inMesh[2] && inMesh[3] && !inMesh[4] && inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube14, cube.transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && inMesh[2] && !inMesh[3] && inMesh[4] && !inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube14, cube.transform.position, Quaternion.Euler(0, 90, 0)) as GameObject;
+		}
+		else if(!inMesh[0] && !inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && !inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube14, cube.transform.position, Quaternion.Euler(0, 0, 90)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && !inMesh[2] && !inMesh[3] && !inMesh[4] && !inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube14, cube.transform.position, Quaternion.Euler(90, 0, 90)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && inMesh[2] && !inMesh[3] && inMesh[4] && !inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube14, cube.transform.position, Quaternion.Euler(0, 90, 90)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && !inMesh[2] && inMesh[3] && !inMesh[4] && inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube14, cube.transform.position, Quaternion.Euler(90, 0, 0)) as GameObject;
+		}
+
+		//Cube15, généré dans 12 cas
+		else if(!inMesh[0] && inMesh[1] && inMesh[2] && inMesh[3] && !inMesh[4] && !inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube15, cube.transform.position, Quaternion.Euler(0, 180, 0)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && inMesh[2] && inMesh[3] && inMesh[4] && !inMesh[5] && !inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube15, cube.transform.position, Quaternion.Euler(0, 90, 0)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && !inMesh[2] && inMesh[3] && !inMesh[4] && inMesh[5] && !inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube15, cube.transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && inMesh[2] && !inMesh[3] && !inMesh[4] && !inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube15, cube.transform.position, Quaternion.Euler(0, -90, 0)) as GameObject;
+		}
+		else if(!inMesh[0] && !inMesh[1] && !inMesh[2] && inMesh[3] && inMesh[4] && inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube15, cube.transform.position, Quaternion.Euler(90, 0, -90)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && !inMesh[2] && !inMesh[3] && inMesh[4] && inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube15, cube.transform.position, Quaternion.Euler(90, 0, 0)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && !inMesh[2] && !inMesh[3] && !inMesh[4] && inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube15, cube.transform.position, Quaternion.Euler(90, 0, 90)) as GameObject;
+		}
+		else if(!inMesh[0] && !inMesh[1] && inMesh[2] && !inMesh[3] && inMesh[4] && !inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube15, cube.transform.position, Quaternion.Euler(90, 0, 180)) as GameObject;
+		}
+		else if(inMesh[0] && !inMesh[1] && !inMesh[2] && inMesh[3] && !inMesh[4] && !inMesh[5] && inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube15, cube.transform.position, Quaternion.Euler(180, -90, 90)) as GameObject;
+		}
+		else if(inMesh[0] && inMesh[1] && !inMesh[2] && !inMesh[3] && inMesh[4] && !inMesh[5] && !inMesh[6] && inMesh[7])
+		{
+			newCube = Instantiate(marchingCube15, cube.transform.position, Quaternion.Euler(180, 180, 90)) as GameObject;
+		}
+		else if(!inMesh[0] && inMesh[1] && inMesh[2] && !inMesh[3] && inMesh[4] && inMesh[5] && !inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube15, cube.transform.position, Quaternion.Euler(180, 90, 90)) as GameObject;
+		}
+		else if(!inMesh[0] && !inMesh[1] && inMesh[2] && inMesh[3] && !inMesh[4] && inMesh[5] && inMesh[6] && !inMesh[7])
+		{
+			newCube = Instantiate(marchingCube15, cube.transform.position, Quaternion.Euler(180, 0, 90)) as GameObject;
+		}
+
+		//Dans tous les autres cas, c'est à dire que moins de 4 vertices du cube sont dans le mesh, on n'affiche rien.
 		else
-		{			
-			newCube = Instantiate(marchingCube1, cube.transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
+		{
+			return;
 		}
 	}
 
@@ -148,20 +755,19 @@ public class MarchingCube : MonoBehaviour
 		newCube.SetActive(true);
 	}
 
-	void OnDrawGizmos()
-	{
-		Gizmos.color = Color.red;
-		for(int i = 0; i < vertices.Length; i++)
-		{
-			if(inMesh[i])
-			{
-				Gizmos.color = Color.green;
-			}
-			else
-			{
-				Gizmos.color = Color.red;
-			}
-			Gizmos.DrawSphere(cube.transform.position + vertices[i], 0.1f);
-		}
-	}
+//	void OnDrawGizmos()
+//	{
+//		for(int i = 0; i < vertices.Length; i++)
+//		{
+//			if(inMesh[i])
+//			{
+//				Gizmos.color = Color.green;
+//			}
+//			else
+//			{
+//				Gizmos.color = Color.red;
+//			}
+//			Gizmos.DrawSphere(cube.transform.position + vertices[i], 0.1f);
+//		}
+//	}
 }

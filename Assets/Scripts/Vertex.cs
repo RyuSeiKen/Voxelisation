@@ -27,10 +27,5 @@ public class Vertex : MonoBehaviour
 		{
 			manager.GetComponent<MarchingCube>().inMesh[vertexNumber] = inside;
 		}
-
-		if(Input.GetKey(KeyCode.Z))
-		{
-			manager.GetComponent<MarchingCube>().CubeReplacer();
-		}
 	}
 }
